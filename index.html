@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Henshaw Capital Partners – Private Equity &amp; Venture Capital</title>
     <meta name="description" content="Henshaw Capital Partners is a Nigerian private equity and venture capital firm catalyzing industry growth, raising awareness, and driving investment for growing businesses and job creation." />
 
@@ -171,62 +171,67 @@
         }
 
         /* ===== NAVBAR (No border-radius to keep it sharp) ===== */
+        /* Ensure the container inside navbar vertically centers everything */
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         /* Base Navbar Styles */
-.navbar {
-    position: fixed; /* Ensures position context */
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding-top: max(18px, env(safe-area-inset-top)); /* Accounts for notch & status bar */
-    padding-bottom: 18px;
-    padding-left: 0;
-    padding-right: 0;
-    transition: var(--transition);
-    background: transparent;
-    z-index: 1050;
-    
-    /* Smooth transition for mobile address bar resizes */
-    will-change: transform, padding;
-}
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            /* Combine explicit top safe area + minimum padding */
+            padding-top: max(16px, env(safe-area-inset-top)) !important;
+            padding-bottom: 16px !important;
+            transition: all 0.3s ease;
+            background: transparent;
+            z-index: 1050;
+        }
 
-.navbar.scrolled {
-    background: rgba(11, 26, 46, 0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); /* Safari support */
-    padding-top: max(12px, env(safe-area-inset-top));
-    padding-bottom: 12px;
-    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
-}
+        /* Scrolled state on mobile */
+        @media (max-width: 991.98px) {
+            .navbar {
+                background: rgba(11, 26, 46, 0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                
+                /* Force minimum breathing room above the toggler button */
+                padding-top: max(14px, env(safe-area-inset-top)) !important;
+                padding-bottom: 14px !important;
+            }
 
-/* Mobile Media Query Fixes */
-@media (max-width: 991.98px) {
-    .section-padding { padding: 70px 0; }
-    .section-padding-sm { padding: 50px 0; }
-    
-    .navbar { 
-        background: rgba(11, 26, 46, 0.97); 
-        backdrop-filter: blur(12px); 
-        -webkit-backdrop-filter: blur(12px); 
-        padding-top: max(12px, env(safe-area-inset-top));
-        padding-bottom: 12px;
-    }
-    
-    /* Ensure the expanded mobile dropdown doesn't overflow screen limits */
-    .navbar-collapse {
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-    }
+            /* Fix Bootstrap Toggler clipping */
+            .navbar-toggler {
+                padding: 6px 10px; /* Normalize default Bootstrap padding */
+                margin-top: 0;
+                margin-bottom: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                vertical-align: middle;
+                /* Prevents the button from stretching to full navbar height */
+                align-self: center; 
+            }
 
-    .navbar .nav-link { padding: 10px 0 !important; }
-    .navbar .nav-link::after { left: 0; right: 0; }
-    .hero-slide .slide-content h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
-    .about-image-wrap img { height: 350px; }
-    .about-image-wrap .about-badge { right: 10px; bottom: 20px; padding: 16px 24px; max-width: 160px; }
-    .about-image-wrap .about-badge span { font-size: 1.8rem; }
-    .approach-step { padding: 20px 0; }
-    .approach-step .step-number { font-size: 2rem; min-width: 44px; }
-}
+            /* Ensure icon isn't clipped by overflow settings */
+            .navbar-toggler-icon {
+                display: inline-block;
+                width: 1.5em;
+                height: 1.5em;
+                vertical-align: middle;
+            }
+        }
+        .navbar.scrolled {
+            background: rgba(11, 26, 46, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 12px 0;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
+        }
         .navbar .navbar-brand {
             font-family: var(--font-display);
             font-size: 1.6rem;
@@ -881,6 +886,19 @@
         }
 
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 991.98px) {
+            .section-padding { padding: 70px 0; }
+            .section-padding-sm { padding: 50px 0; }
+            /* .navbar { background: rgba(11, 26, 46, 0.97); backdrop-filter: blur(12px); padding: 12px 0; } */
+            .navbar .nav-link { padding: 10px 0 !important; }
+            .navbar .nav-link::after { left: 0; right: 0; }
+            .hero-slide .slide-content h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+            .about-image-wrap img { height: 350px; }
+            .about-image-wrap .about-badge { right: 10px; bottom: 20px; padding: 16px 24px; max-width: 160px; }
+            .about-image-wrap .about-badge span { font-size: 1.8rem; }
+            .approach-step { padding: 20px 0; }
+            .approach-step .step-number { font-size: 2rem; min-width: 44px; }
+        }
         @media (max-width: 575.98px) {
             .hero-slider { min-height: 600px; }
             .hero-slide .slide-content .badge-gold { font-size: 0.65rem; padding: 6px 18px; }
@@ -972,31 +990,32 @@
     </button>
 
     <!-- ===== NAVBAR ===== -->
-    <nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                Henshaw<span class="gold">.</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
-                aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#approach">Approach</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item">
-                        <a href="#contact" class="btn-gold-sm d-none d-lg-inline-block">Let's Talk</a>
-                    </li>
-                </ul>
-            </div>
+   <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <!-- Added align-items-center here -->
+    <div class="container align-items-center">
+        <a class="navbar-brand" href="#">
+            Henshaw<span class="gold">.</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+            aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+                <li class="nav-item"><a class="nav-link" href="#approach">Approach</a></li>
+                <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item">
+                    <a href="#contact" class="btn-gold-sm d-none d-lg-inline-block">Let's Talk</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 <!-- ===== HERO SLIDER ===== -->
 <section class="hero-slider" id="hero">
