@@ -171,51 +171,62 @@
         }
 
         /* ===== NAVBAR (No border-radius to keep it sharp) ===== */
-        .navbar {
-            padding-top: max(18px, env(safe-area-inset-top));
-            padding-bottom: 18px;
-            padding-left: 0;
-            padding-right: 0;
-            transition: var(--transition);
-            background: transparent;
-            z-index: 1050;
-            
-            /* Ensure the top anchoring is strictly flush */
-            top: 0;
-            left: 0;
-            right: 0;
-        }
+        /* Base Navbar Styles */
+.navbar {
+    position: fixed; /* Ensures position context */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding-top: max(18px, env(safe-area-inset-top)); /* Accounts for notch & status bar */
+    padding-bottom: 18px;
+    padding-left: 0;
+    padding-right: 0;
+    transition: var(--transition);
+    background: transparent;
+    z-index: 1050;
+    
+    /* Smooth transition for mobile address bar resizes */
+    will-change: transform, padding;
+}
 
-        .navbar.scrolled {
-            background: rgba(11, 26, 46, 0.97);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); /* Safari support */
-            padding-top: max(12px, env(safe-area-inset-top));
-            padding-bottom: 12px;
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
-        }
+.navbar.scrolled {
+    background: rgba(11, 26, 46, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: 12px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
+}
 
-        @media (max-width: 991.98px) {
-            .section-padding { padding: 70px 0; }
-            .section-padding-sm { padding: 50px 0; }
-            
-            .navbar { 
-                background: rgba(11, 26, 46, 0.97); 
-                backdrop-filter: blur(12px); 
-                -webkit-backdrop-filter: blur(12px);
-                padding-top: max(12px, env(safe-area-inset-top)); 
-                padding-bottom: 12px; 
-            }
-            
-            .navbar .nav-link { padding: 10px 0 !important; }
-            .navbar .nav-link::after { left: 0; right: 0; }
-            .hero-slide .slide-content h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
-            .about-image-wrap img { height: 350px; }
-            .about-image-wrap .about-badge { right: 10px; bottom: 20px; padding: 16px 24px; max-width: 160px; }
-            .about-image-wrap .about-badge span { font-size: 1.8rem; }
-            .approach-step { padding: 20px 0; }
-            .approach-step .step-number { font-size: 2rem; min-width: 44px; }
-        }
+/* Mobile Media Query Fixes */
+@media (max-width: 991.98px) {
+    .section-padding { padding: 70px 0; }
+    .section-padding-sm { padding: 50px 0; }
+    
+    .navbar { 
+        background: rgba(11, 26, 46, 0.97); 
+        backdrop-filter: blur(12px); 
+        -webkit-backdrop-filter: blur(12px); 
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: 12px;
+    }
+    
+    /* Ensure the expanded mobile dropdown doesn't overflow screen limits */
+    .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+
+    .navbar .nav-link { padding: 10px 0 !important; }
+    .navbar .nav-link::after { left: 0; right: 0; }
+    .hero-slide .slide-content h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+    .about-image-wrap img { height: 350px; }
+    .about-image-wrap .about-badge { right: 10px; bottom: 20px; padding: 16px 24px; max-width: 160px; }
+    .about-image-wrap .about-badge span { font-size: 1.8rem; }
+    .approach-step { padding: 20px 0; }
+    .approach-step .step-number { font-size: 2rem; min-width: 44px; }
+}
         .navbar .navbar-brand {
             font-family: var(--font-display);
             font-size: 1.6rem;
